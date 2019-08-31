@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 let url = "mongodb://localhost:27017/mediaDB";
 const connect = mongoose.connect(url, {useNewUrlParser: true});
 const autoincrement  = require('mongoose-auto-increment');
-autoincrement.initialize(mongoose.Connection);
+autoincrement.initialize(mongoose.connection);
 
 let Schema = mongoose.Schema;
 
@@ -19,7 +19,7 @@ let ProductSchema = new Schema({
     price : { type:Number, require : true },
     image : { type:String, require: true},
     description : { type:String, require: true },
-    since : { type: Date, require : true}
+    since : { type:Date, require : true}
 });
 
 let Cat = mongoose.model('category', CatSchema);
