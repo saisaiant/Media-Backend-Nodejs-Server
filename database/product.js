@@ -6,7 +6,7 @@ let save = (obj) => {
         obj['since'] = new Date();
         let product = new Product(obj);
         product.save((err, data) => {
-            if(err) reject(err);
+            if (err) reject(err);
             resolve(data);
         })
     });
@@ -15,7 +15,7 @@ let save = (obj) => {
 let all = () => {
     return new Promise((resolve, reject) => {
         Product.find({}, (err, data) => {
-            if(err) reject(err);
+            if (err) reject(err);
             resolve(data);
         })
     })
@@ -23,8 +23,10 @@ let all = () => {
 
 let destroy = (id) => {
     return new Promise((resolve, reject) => {
-        Product.deleteOne({_id:id}, err =>{
-            if(err) {
+        Product.deleteOne({
+            _id: id
+        }, err => {
+            if (err) {
                 reject(err)
             } else {
                 resolve("OK")
@@ -33,8 +35,27 @@ let destroy = (id) => {
     })
 }
 
+let paginate = (start, count) => {
+    var options = {
+        sort: {
+            _id: 1
+        },
+        lean: true,
+        page: start,
+        limit: count
+    };
+    console.log("Start : ", start, " Count: ", count);
+    return new Promise((resolve, reject) => {
+        Product.paginate({}, options, (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        })
+    })
+}
+
 module.exports = {
     save,
-    all, 
-    destroy
+    all,
+    destroy,
+    paginate
 }

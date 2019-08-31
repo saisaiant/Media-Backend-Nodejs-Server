@@ -3,6 +3,7 @@ let url = "mongodb://localhost:27017/mediaDB";
 const connect = mongoose.connect(url, {useNewUrlParser: true});
 const autoincrement  = require('mongoose-auto-increment');
 autoincrement.initialize(mongoose.connection);
+const mongoosePaginate = require('mongoose-paginate');
 
 let Schema = mongoose.Schema;
 
@@ -25,6 +26,7 @@ let ProductSchema = new Schema({
 let Cat = mongoose.model('category', CatSchema);
 
 ProductSchema.plugin(autoincrement.plugin, 'product');
+ProductSchema.plugin(mongoosePaginate);
 let Product = mongoose.model('product', ProductSchema);
 
 module.exports = {

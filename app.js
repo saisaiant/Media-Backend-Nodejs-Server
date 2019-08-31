@@ -35,13 +35,14 @@ cat.all().then(res => console.log(res)).catch(err => console.log(err));
 // .then(res => console.log(res))
 // .catch(err => console.log(err));
 
-const cat = require('./database/cat');
+const product = require('./database/product');
 
-cat.getPost('id', 'cat_id', 'products')
-.then(res => console.log(res))
-.catch(err => console.log(err));
+product.paginate(5, 50)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
 
 
-app.listen(process.env.PORT,()=>{
+app.listen(process.env.PORT, () => {
+    console.log('Server is running at', process.env.PORT);
     console.log('Server is running at', process.env.PORT);
 })
