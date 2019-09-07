@@ -14,17 +14,17 @@ let jwtOptions = {};
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 jwtOptions.secretOrKey = process.env.SECRET;
 
-let myStrategy = new JwtStrategy(jwtOptions, (payload,done) => {
+let myStrategy = new JwtStrategy(jwtOptions, (payload, done) => {
     let email = payload.email;
     let name = payload.name;
 
     User.findByEmail(email)
-    .then(user=> {
-        if(user.name == name) {
-            done(null, user);
-        }
-    })
-    .catch(err => done(err, null));
+        .then(user => {
+            if (user.name == name) {
+                done(null, user);
+            }
+        })
+        .catch(err => done(err, null));
 });
 
 /*
@@ -81,7 +81,7 @@ passport.use(myStrategy);
 app.use(express.static(path.join(__dirname, './assets')));
 app.use('/user', userRoute);
 app.use('/admin', adminRoute);
-app.use('/guest', guestRoute);
+app.use('/', guestRoute);
 
 app.listen(process.env.PORT, () => {
     console.log('Server is running at', process.env.PORT);

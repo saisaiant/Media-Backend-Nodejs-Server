@@ -16,10 +16,11 @@ var upload = multer({
     storage: storage
 });
 
+
+
+
 module.exports = (express, passport) => {
     let router = express.Router();
-
-
 
     router.post('/image/upload', passport.authenticate('jwt', {
         session: false
